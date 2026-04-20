@@ -15,7 +15,7 @@ SRC_DIR = src
 OBJ_DIR = obj
 BIN_DIR = bin
 
-FILES = Bureaucrat \
+FILES = ScalarConverter \
 
 OBJS = ${FILES:%=${OBJ_DIR}/%.o}
 DEPS = ${FILES:%=${OBJ_DIR}/%.d}
