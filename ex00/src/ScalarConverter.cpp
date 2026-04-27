@@ -1,7 +1,9 @@
 #include "ScalarConverter.hpp"
 #include <cctype>
+#include <cmath>
 #include <iostream>
 #include <cstdint>
+#include <limits>
 
 static bool	isChar(std::string &literal) {
 	if (literal.size() == 1 && !std::isdigit(literal[0]))
@@ -94,14 +96,15 @@ static void convertChar(std::string &literal) {
 		c = literal[0];
 	else
 		c = literal[1];
+
 	std::cout << "char: ";
 	isprint(c)
 		? (std::cout << "'" << c << "'" << std::endl)
 		: (std::cout << "Non displayable");
+
 	std::cout << "int: " << static_cast<int>(c) << std::endl;
 	std::cout << "float: " << static_cast<float>(c) << ".0f" << std::endl;
 	std::cout << "double: " << static_cast<double>(c) << ".0" << std::endl;
-
 }
 
 static void	convertInt(std::string &literal) {
@@ -114,18 +117,21 @@ static void	convertInt(std::string &literal) {
 		isprint(val)
 			? (std::cout << "'" << static_cast<char>(val) << "'" << std::endl)
 			: (std::cout << "Non displayable" << std::endl);
+
 	std::cout << "int: ";
 	if (val < INT32_MIN || val > INT32_MAX)
 		std::cout << "impossible";
 	else
 		std::cout << static_cast<int>(val) << std::endl;
+
 	std::cout << "float: " << static_cast<float>(val) << ".0f" << std::endl;
 	std::cout << "double: " << static_cast<double>(val) << ".0" << std::endl;
 }
 
 static void	convertFloat(std::string &literal) {
 	long double	val = atof(literal.c_str());
-	(void)val;
+	bool		trim = std::fabs(val - static_cast<int>(val)) < 0.000001;
+
 	std::cout << "char: ";
 	if (val < 0 || val > 127)
 		std::cout << "impossible" << std::endl;
@@ -133,16 +139,32 @@ static void	convertFloat(std::string &literal) {
 		isprint(val)
 			? (std::cout << "'" << static_cast<char>(val) << "'" << std::endl)
 			: (std::cout << "Non displayable" << std::endl);
+
 	std::cout << "int: ";
 	if (val < INT32_MIN || val > INT32_MAX)
 		std::cout << "impossible";
 	else
 		std::cout << static_cast<int>(val) << std::endl;
+
+	std::cout << "float: ";
+	if (val < std::numeric_limits<float>::min()
+		|| val > std::numeric_limits<float>::max())
+		std::cout << "impossible" << std::endl;
+	else
+		std::cout << val << (trim ? ".0f" : "f") << std::endl;
+	
+	std::cout << "double: ";
+	if (val < std::numeric_limits<double>::min()
+		|| val > std::numeric_limits<double>::max())
+		std::cout << "impossible" << std::endl;
+	else
+		std::cout << val << (trim ? ".0" : "f") << std::endl;
 }
 
 static void	convertDouble(std::string &literal) {
 	long double	val = atof(literal.c_str());
-	(void)val;
+	bool		trim = std::fabs(val - static_cast<int>(val)) < 0.000001;
+
 	std::cout << "char: ";
 	if (val < 0 || val > 127)
 		std::cout << "impossible" << std::endl;
@@ -150,11 +172,26 @@ static void	convertDouble(std::string &literal) {
 		isprint(val)
 			? (std::cout << "'" << static_cast<char>(val) << "'" << std::endl)
 			: (std::cout << "Non displayable" << std::endl);
+
 	std::cout << "int: ";
 	if (val < INT32_MIN || val > INT32_MAX)
 		std::cout << "impossible";
 	else
 		std::cout << static_cast<int>(val) << std::endl;
+
+	std::cout << "float: ";
+	if (val < std::numeric_limits<float>::min()
+		|| val > std::numeric_limits<float>::max())
+		std::cout << "impossible" << std::endl;
+	else
+		std::cout << val << (trim ? ".0f" : "f") << std::endl;
+	
+	std::cout << "double: ";
+	if (val < std::numeric_limits<double>::min()
+		|| val > std::numeric_limits<double>::max())
+		std::cout << "impossible" << std::endl;
+	else
+		std::cout << val << (trim ? ".0" : "f") << std::endl;
 }
 
 void	ScalarConverter::convert(std::string literal) {
