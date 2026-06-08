@@ -2,8 +2,8 @@
 #include <cctype>
 #include <cmath>
 #include <iostream>
-#include <cstdint>
 #include <limits>
+#include <stdint.h>
 
 static bool	isChar(std::string &literal) {
 	if (literal.size() == 1 && !std::isdigit(literal[0]))
