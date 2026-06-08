@@ -20,11 +20,7 @@ FILES = Base \
 OBJS = ${FILES:%=${OBJ_DIR}/%.o}
 DEPS = ${FILES:%=${OBJ_DIR}/%.d}
 
-TESTS = ${FILES:%=${BIN_DIR}/%}
-TEST_OBJS = ${FILES:%=${OBJ_DIR}/test%.o}
-
 OBJ_DIRS = ${sort ${dir ${OBJS}}}
-TEST_DIRS = ${sort ${dir ${TESTS}}}
 
 DEFS = -D DEBUG=0
 
@@ -46,34 +42,6 @@ ${OBJ_DIRS}:
 	mkdir -p $@
 
 -include ${DEPS}
-
-################################################################################
-#
-#	Tests targets
-#
-################################################################################
-
-tests: bin/allTests
-	valgrind ./bin/allTests
-
-bin/allTests: ${TEST_OBJS} ${OBJS}
-	mkdir -p bin
-	${CXX} ${CXXFLAGS} $^ -o bin/allTests \
-		-I/usr/src/googletest/googletest/include \
-		-L/usr/lib \
-		-lgtest -lgtest_main -pthread
-
-test%: ${BIN_DIR}/%
-	valgrind ./$<
-
-${BIN_DIR}/%: ${OBJ_DIR}/test%.o ${OBJS} | ${TEST_DIRS}
-	${CXX} ${CXXFLAGS} $^ -o $@ \
-		-I/usr/src/googletest/googletest/include \
-		-L/usr/lib \
-		-lgtest -lgtest_main -pthread
-
-${TEST_DIRS}:
-	mkdir -p $@
 
 ################################################################################
 #
