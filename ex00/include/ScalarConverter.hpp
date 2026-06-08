@@ -12,6 +12,9 @@ typedef enum e_type {
 }	t_type;
 
 class ScalarConverter {
+	private:
+		ScalarConverter();
+
 	public:
 		static void	convert(std::string literal); 
 };
