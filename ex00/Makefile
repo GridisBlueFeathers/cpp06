@@ -92,9 +92,11 @@ fclean: clean
 
 re: fclean all
 
+run: ARGS=42
 run: ${NAME}
 	./${NAME} ${ARGS}
 
+valgrind: ARGS=42
 valgrind: ${NAME}
 	valgrind \
 		--leak-check=full \

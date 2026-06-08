@@ -120,7 +120,7 @@ static void	convertInt(std::string &literal) {
 
 	std::cout << "int: ";
 	if (val < INT32_MIN || val > INT32_MAX)
-		std::cout << "impossible";
+		std::cout << "impossible" << std::endl;
 	else
 		std::cout << static_cast<int>(val) << std::endl;
 
@@ -142,7 +142,7 @@ static void	convertFloat(std::string &literal) {
 
 	std::cout << "int: ";
 	if (val < INT32_MIN || val > INT32_MAX)
-		std::cout << "impossible";
+		std::cout << "impossible" << std::endl;
 	else
 		std::cout << static_cast<int>(val) << std::endl;
 
@@ -175,7 +175,7 @@ static void	convertDouble(std::string &literal) {
 
 	std::cout << "int: ";
 	if (val < INT32_MIN || val > INT32_MAX)
-		std::cout << "impossible";
+		std::cout << "impossible" << std::endl;
 	else
 		std::cout << static_cast<int>(val) << std::endl;
 
