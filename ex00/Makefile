@@ -31,6 +31,7 @@ DEFS = -D DEBUG=0
 
 all: ${NAME}
 
+${NAME}: CXXFLAGS := ${CXXFLAGS} -std=c++98
 ${NAME}: ${OBJS} ${OBJ_DIR}/main.o
 	${CXX} ${CXXFLAGS} $^ -o $@
 
